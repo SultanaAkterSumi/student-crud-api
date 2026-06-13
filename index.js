@@ -2,17 +2,17 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-// Middleware: JSON body পড়ার অনুমতি
+// Middleware: JSON body reading permission
 app.use(express.json());
 
-// Routes যুক্ত করা
+// Routes Connection
 const studentRoutes = require("./routes/students");
 app.use("/api/students", studentRoutes);
 
 // Home route
 app.get("/", (req, res) => {
   res.json({
-    message: "Student CRUD API চলছে!",
+    message: "Student CRUD API is Running!",
     routes: {
       getAll: "GET    /api/students",
       getOne: "GET    /api/students/:id",
@@ -28,12 +28,12 @@ app.get("/", (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: `${req.method} ${req.url} পাওয়া যায়নি`,
+    message: `${req.method} ${req.url} Not Found`,
   });
 });
 
-// Server চালু
+// Server running
 app.listen(PORT, () => {
-  console.log(`✅ Server চলছে: http://localhost:${PORT}`);
+  console.log(`✅ Server Running: http://localhost:${PORT}`);
   console.log(`📋 API: http://localhost:${PORT}/api/students`);
 });

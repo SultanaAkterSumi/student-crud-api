@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const students = require("../data/students");
 
-let nextId = 4; // নতুন student এর ID
+let nextId = 4; // ID of new student
 
-// ── GET: সব student দেখা ──────────────────────────
+// ── GET: All student Info ──────────────────────────
 // URL: GET /api/students
 router.get("/", (req, res) => {
   res.status(200).json({
@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// ── GET: একটি student দেখা ───────────────────────
+// ── GET: Get a single student info ───────────────────────
 // URL: GET /api/students/1
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -23,14 +23,14 @@ router.get("/:id", (req, res) => {
   if (!student) {
     return res.status(404).json({
       success: false,
-      message: "Student পাওয়া যায়নি",
+      message: "Student Not Found",
     });
   }
 
   res.status(200).json({ success: true, data: student });
 });
 
-// ── POST: নতুন student যোগ করা ───────────────────
+// ── POST: Create a new student ───────────────────
 // URL: POST /api/students
 router.post("/", (req, res) => {
   const { name, subject, gpa } = req.body;
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
   if (!name || !subject || gpa === undefined) {
     return res.status(400).json({
       success: false,
-      message: "name, subject এবং gpa আবশ্যক",
+      message: "name, subject and gpa required",
     });
   }
 
@@ -48,12 +48,12 @@ router.post("/", (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: "নতুন student যোগ হয়েছে",
+    message: "New student added",
     data: newStudent,
   });
 });
 
-// ── PUT: পুরো student আপডেট ──────────────────────
+// ── PUT: complete student update ──────────────────────
 // URL: PUT /api/students/1
 router.put("/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -62,7 +62,7 @@ router.put("/:id", (req, res) => {
   if (index === -1) {
     return res.status(404).json({
       success: false,
-      message: "Student পাওয়া যায়নি",
+      message: "Student Not Found",
     });
   }
 
@@ -70,7 +70,7 @@ router.put("/:id", (req, res) => {
   if (!name || !subject || gpa === undefined) {
     return res.status(400).json({
       success: false,
-      message: "name, subject এবং gpa আবশ্যক",
+      message: "name, subject and gpa required",
     });
   }
 
@@ -78,12 +78,12 @@ router.put("/:id", (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Student সম্পূর্ণ আপডেট হয়েছে",
+    message: "Student completely updated",
     data: students[index],
   });
 });
 
-// ── PATCH: আংশিক আপডেট ───────────────────────────
+// ── PATCH: partial student update ───────────────────────────
 // URL: PATCH /api/students/1
 router.patch("/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -92,7 +92,7 @@ router.patch("/:id", (req, res) => {
   if (index === -1) {
     return res.status(404).json({
       success: false,
-      message: "Student পাওয়া যায়নি",
+      message: "Student Not Found",
     });
   }
 
@@ -100,12 +100,12 @@ router.patch("/:id", (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Student আংশিক আপডেট হয়েছে",
+    message: "Student partially updated",
     data: students[index],
   });
 });
 
-// ── DELETE: student মুছে ফেলা ────────────────────
+// ── DELETE: Delete a student ────────────────────
 // URL: DELETE /api/students/1
 router.delete("/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -114,7 +114,7 @@ router.delete("/:id", (req, res) => {
   if (index === -1) {
     return res.status(404).json({
       success: false,
-      message: "Student পাওয়া যায়নি",
+      message: "Student Not Found",
     });
   }
 
@@ -122,7 +122,7 @@ router.delete("/:id", (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: "Student মুছে ফেলা হয়েছে",
+    message: "Student Deleted",
     data: deleted,
   });
 });
